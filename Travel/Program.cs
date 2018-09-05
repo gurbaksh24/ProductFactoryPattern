@@ -13,7 +13,7 @@ namespace Travel
             Program program = new Program();
             Console.WriteLine("Enter the name of the product");
             string productName = Console.ReadLine();
-            var product = ProductFactory.GetProduct(productName);
+            IProduct product = ProductFactory.GetProduct(productName);
             program.Book(product);
             Console.ReadKey();
         }
