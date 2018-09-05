@@ -1,0 +1,7 @@
+c:\users\ggabbi\source\repos\Travel\Travel\bin\Debug\Travel.exe.config
+c:\users\ggabbi\source\repos\Travel\Travel\bin\Debug\Travel.exe
+c:\users\ggabbi\source\repos\Travel\Travel\bin\Debug\Travel.pdb
+c:\users\ggabbi\source\repos\Travel\Travel\obj\Debug\Travel.csprojResolveAssemblyReference.cache
+c:\users\ggabbi\source\repos\Travel\Travel\obj\Debug\Travel.csproj.CoreCompileInputs.cache
+c:\users\ggabbi\source\repos\Travel\Travel\obj\Debug\Travel.exe
+c:\users\ggabbi\source\repos\Travel\Travel\obj\Debug\Travel.pdb
