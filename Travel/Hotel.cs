@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace Travel
 {
-    class Hotel : IProduct
+    class Hotel : FileHandling, IProduct
     {
-        public int HotelId { get; set; }
-        public string HotelName { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
         public bool IsBooked { get; set; }
-        public string Address { get; set; }
         public void Book()
         {
             Console.WriteLine("Hotel Booked");
@@ -19,7 +18,16 @@ namespace Travel
 
         public void Save()
         {
-            Console.WriteLine("Saved Hotel Details");
+            Hotel hotel = new Hotel();
+            int hotelId;
+            Console.WriteLine("Fill out the following details:");
+            Console.Write("Hotel ID: ");
+            int.TryParse(Console.ReadLine(), out hotelId);
+            hotel.Id = hotelId;
+            Console.Write("Hotel Name: ");
+            hotel.Name = Console.ReadLine();
+            IsBooked = false;
+            InsertProduct(hotel.Id.ToString(), hotel.Name, hotel.IsBooked.ToString());
         }
     }
 }

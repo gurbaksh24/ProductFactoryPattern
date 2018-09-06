@@ -45,8 +45,12 @@
     <Compile Include="Activity.cs" />
     <Compile Include="Air.cs" />
     <Compile Include="Car.cs" />
+    <Compile Include="FileHandling.cs" />
     <Compile Include="Hotel.cs" />
+    <Compile Include="ILogger.cs" />
     <Compile Include="IProduct.cs" />
+    <Compile Include="IRepository.cs" />
+    <Compile Include="Logging.cs" />
     <Compile Include="ProductFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

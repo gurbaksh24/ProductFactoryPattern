@@ -13,13 +13,20 @@ namespace Travel
             Program program = new Program();
             Console.WriteLine("Enter the name of the product");
             string productName = Console.ReadLine();
+            Logging.Instance.Log("Called GetProduct() method In ProductFactory class from the Main() method in the Program class");
             IProduct product = ProductFactory.GetProduct(productName);
-            program.Book(product);
+            Logging.Instance.Log("Called Save() method of Program class from the Main() method in the Program class");
+            program.Save(product);
             Console.ReadKey();
+        }
+        void Save(IProduct product)
+        {
+            Logging.Instance.Log("Called Save() method of IProduct Interface from the Save() method in the Program class");
+            product.Save();
         }
         void Book(IProduct product)
         {
-            product.Save();
+            Logging.Instance.Log("Called Book() method of IProduct Interface from the Save() method in the Program class");
             product.Book();
         }
     }

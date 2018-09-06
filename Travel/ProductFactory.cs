@@ -13,6 +13,7 @@ namespace Travel
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
             var productType = assembly.GetTypes().FirstOrDefault(t => t.Name==product);
+            Logging.Instance.Log("Returning instance of called class");
             return (IProduct)Activator.CreateInstance(productType);
         }
     }

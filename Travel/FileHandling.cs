@@ -9,11 +9,19 @@ namespace Travel
 {
     class FileHandling : IRepository
     {
-        public void InsertProduct(IProduct product)
+        public void InsertProduct(params string[] members)
         {
-            using (FileStream savingfs = new FileStream(@"c:\SaveFile.txt", FileMode.Append))
+            using (FileStream savingfs = new FileStream(@"c:\SaveFile.txt", FileMode.Append,FileAccess.Write))
             {
-                savingfs.Write(product.Id);
+                using (StreamWriter sw = new StreamWriter(savingfs))
+                {
+                    foreach (string memberIndex in members)
+                    {
+                        sw.WriteLine(memberIndex);
+                    }
+                    sw.WriteLine("---------------------");
+                    sw.Flush();
+                }
             }
         }
         

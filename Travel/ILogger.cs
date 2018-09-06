@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Travel
 {
-    interface IRepository
+    interface ILogger
     {
-        void InsertProduct(params string[] members);
+        void Log(string msg);
     }
 }
