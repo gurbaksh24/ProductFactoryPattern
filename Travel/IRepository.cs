@@ -9,5 +9,6 @@ namespace Travel
     interface IRepository
     {
         void InsertProduct(params string[] members);
+        void UpdateProduct(int productId, bool bookingStatus, string product);
     }
 }

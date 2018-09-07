@@ -6,17 +6,23 @@ using System.Threading.Tasks;
 
 namespace Travel
 {
-    class Activity : FileHandling, IProduct
+    class Activity : IProduct
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public bool IsBooked { get; set; }
-        public void Book()
+        public void Book(IRepository repository)
         {
-
+            Activity activity = new Activity();
+            int activityId;
+            Console.WriteLine("Fill out the following details:");
+            Console.Write("Activity ID: ");
+            int.TryParse(Console.ReadLine(), out activityId);
+            activity.Id = activityId;
+            repository.UpdateProduct(activityId, true, "Activity");
         }
 
-        public void Save()
+        public void Save(IRepository repository)
         {
             Activity activity = new Activity();
             int activityId;
@@ -27,9 +33,7 @@ namespace Travel
             Console.Write("Activity Name: ");
             activity.Name = Console.ReadLine();
             IsBooked = false;
-            InsertProduct(activity.Id.ToString(), activity.Name, activity.IsBooked.ToString());
+            repository.InsertProduct(activity.Id.ToString(), activity.Name, "Activity", activity.IsBooked.ToString());
         }
-
-
     }
 }

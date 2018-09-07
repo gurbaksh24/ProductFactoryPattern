@@ -20,11 +20,8 @@ namespace Travel
         {
             get
             {
-                // If our private instance field is null
                 if (instance == null)
                 {
-                    // new up an instance
-                    // and store it in our private field.
                     instance = new Logging();
                 }
                 return instance;

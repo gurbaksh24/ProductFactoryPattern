@@ -8,7 +8,7 @@ namespace Travel
 {
     interface IProduct
     {
-        void Save();
-        void Book();
+        void Save(IRepository repository);
+        void Book(IRepository repository);
     }
 }

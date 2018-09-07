@@ -5,3 +5,7 @@ c:\users\ggabbi\source\repos\Travel\Travel\obj\Debug\Travel.csprojResolveAssembl
 c:\users\ggabbi\source\repos\Travel\Travel\obj\Debug\Travel.csproj.CoreCompileInputs.cache
 c:\users\ggabbi\source\repos\Travel\Travel\obj\Debug\Travel.exe
 c:\users\ggabbi\source\repos\Travel\Travel\obj\Debug\Travel.pdb
+C:\Users\ggabbi\source\repos\Travel\Travel\bin\Debug\EntityFramework.dll
+C:\Users\ggabbi\source\repos\Travel\Travel\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\ggabbi\source\repos\Travel\Travel\bin\Debug\EntityFramework.xml
+C:\Users\ggabbi\source\repos\Travel\Travel\bin\Debug\EntityFramework.SqlServer.xml
