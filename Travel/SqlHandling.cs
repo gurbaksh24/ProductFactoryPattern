@@ -8,7 +8,7 @@ namespace Travel
 {
     class SqlHandling : IRepository
     {
-        public void InsertProduct(params string[] members)
+        public void InsertProduct(int productId, string productName, IProduct product, bool bookingStatus, double fare, double actualPrice)
         {
             SqlConnection sqlConnection = null;
             try
@@ -16,11 +16,13 @@ namespace Travel
                 sqlConnection = new SqlConnection();
                 sqlConnection.ConnectionString = @"Data Source=TAVDESK060;Initial Catalog=travel;Integrated Security=True";
                 sqlConnection.Open();
-                string query = "Insert into "+members[2]+"(Id,Name,IsBooked) values(@id,@name,@isBooked)";
+                string query = "Insert into "+product.GetType().Name+"(Id,Name,IsBooked,Fare,ActualPrice) values(@id,@name,@isBooked,@fare,@actualPrice)";
                 SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
-                sqlCommand.Parameters.Add(new SqlParameter("@id", int.Parse(members[0])));
-                sqlCommand.Parameters.Add(new SqlParameter("@name", members[1]));
-                sqlCommand.Parameters.Add(new SqlParameter("@isBooked", members[3]));
+                sqlCommand.Parameters.Add(new SqlParameter("@id", productId));
+                sqlCommand.Parameters.Add(new SqlParameter("@name", productName));
+                sqlCommand.Parameters.Add(new SqlParameter("@isBooked", bookingStatus.ToString()));
+                sqlCommand.Parameters.Add(new SqlParameter("@fare", fare));
+                sqlCommand.Parameters.Add(new SqlParameter("@actualPrice", actualPrice));
                 sqlCommand.ExecuteNonQuery();
                 Console.WriteLine("Data Saved");
             }
@@ -34,7 +36,33 @@ namespace Travel
             }
         }
 
-        public void UpdateProduct(int productId, bool bookingStatus, string product)
+        public void UpdateProduct(int productId, bool bookingStatus, IProduct product)
+        {
+            SqlConnection sqlConnection = null;
+            try
+            {
+                double actualFare = GetFare(productId, product);
+                sqlConnection = new SqlConnection();
+                sqlConnection.ConnectionString = @"Data Source=TAVDESK060;Initial Catalog=travel;Integrated Security=True";
+                sqlConnection.Open();
+                string query = "Update " + product.GetType().Name + " set IsBooked=@isBooked,Fare=@fare where Id=@id";
+                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+                sqlCommand.Parameters.Add(new SqlParameter("@id", productId));
+                sqlCommand.Parameters.Add(new SqlParameter("@isBooked", bookingStatus.ToString()));
+                sqlCommand.Parameters.Add(new SqlParameter("@fare", actualFare));
+                sqlCommand.ExecuteNonQuery();
+                Console.WriteLine("Booked");
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.StackTrace);
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+        }
+        private double GetFare(int productId, IProduct product)
         {
             SqlConnection sqlConnection = null;
             try
@@ -42,16 +70,23 @@ namespace Travel
                 sqlConnection = new SqlConnection();
                 sqlConnection.ConnectionString = @"Data Source=TAVDESK060;Initial Catalog=travel;Integrated Security=True";
                 sqlConnection.Open();
-                string query = "Update " + product + " set IsBooked=@isBooked where Id=@id";
+                string query = "Select * from " + product.GetType().Name + " where Id=@id";
                 SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
                 sqlCommand.Parameters.Add(new SqlParameter("@id", productId));
-                sqlCommand.Parameters.Add(new SqlParameter("@isBooked", bookingStatus.ToString()));
-                sqlCommand.ExecuteNonQuery();
+                SqlDataReader dr = sqlCommand.ExecuteReader();
+                double price=0;
+                if (dr.Read())
+                {
+                    FareStrategy fareStrategy = new FareStrategy();
+                    price = fareStrategy.CalculateFare(double.Parse(dr[4].ToString()),product);
+                }
                 Console.WriteLine("Booked");
+                return price;
             }
             catch (SqlException e)
             {
                 Console.WriteLine(e.StackTrace);
+                return 0;
             }
             finally
             {

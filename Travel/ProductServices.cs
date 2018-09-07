@@ -1,37 +1,45 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-//namespace Travel
-//{
-//    class ProductServices:IProduct
-//    {
-//        public void Book(IRepository repository, IProduct productType)
-//        {
-//            Air air = new Air();
-//            int activityId;
-//            Console.WriteLine("Fill out the following details:");
-//            Console.Write("Air ID: ");
-//            int.TryParse(Console.ReadLine(), out activityId);
-//            air.Id = activityId;
-//            repository.UpdateProduct(air.Id, true, "Air");
-//        }
+namespace Travel
+{
+    class ProductServices : IProduct
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public bool IsBooked { get; set; }
+        public double Fare { get; set; }
+        public double ActualPrice { get; set; }
+        public void Book(IRepository repository, IProduct productType)
+        {
+            int productId;
+            Console.WriteLine("Fill out the following details:");
+            Console.Write("Product ID: ");
+            int.TryParse(Console.ReadLine(), out productId);
+            productType.Id = productId;
+            repository.UpdateProduct(productType.Id, true, productType);
+        }
 
-//        public void Save(IRepository repository)
-//        {
-//            Air air = new Air();
-//            int activityId;
-//            Console.WriteLine("Fill out the following details:");
-//            Console.Write("Air ID: ");
-//            int.TryParse(Console.ReadLine(), out activityId);
-//            air.Id = activityId;
-//            Console.Write("Air Name: ");
-//            air.Name = Console.ReadLine();
-//            IsBooked = false;
-//            Logging.Instance.Log("Called InsertProduct() method of IRepository Interface from the Save() method in the Air class");
-//            repository.InsertProduct(air.Id.ToString(), air.Name, "Air", air.IsBooked.ToString());
-//        }
-//    }
-//}
+        public void Save(IRepository repository, IProduct productType)
+        {
+            int productId;
+            Console.WriteLine("Fill out the following details:");
+            Console.Write("Product ID: ");
+            int.TryParse(Console.ReadLine(), out productId);
+            productType.Id = productId;
+            Console.Write("Product Name: ");
+            productType.Name = Console.ReadLine();
+            Console.WriteLine("Product Fare: ");
+            FareStrategy fareStrategy = new FareStrategy();
+            double price= double.Parse(Console.ReadLine());
+            productType.Fare = price;
+            productType.ActualPrice = price;
+            productType.IsBooked = false;
+            Logging.Instance.Log("Called InsertProduct() method of IRepository Interface from the Save() method in the Air class");
+            repository.InsertProduct(productType.Id, productType.Name, productType, productType.IsBooked, productType.Fare,productType.ActualPrice);
+        }
+    }
+}

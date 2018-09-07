@@ -54,8 +54,10 @@
     <Compile Include="Activity.cs" />
     <Compile Include="Air.cs" />
     <Compile Include="Car.cs" />
+    <Compile Include="FareStrategy.cs" />
     <Compile Include="FileHandling.cs" />
     <Compile Include="Hotel.cs" />
+    <Compile Include="IFareCalculate.cs" />
     <Compile Include="ILogger.cs" />
     <Compile Include="IProduct.cs" />
     <Compile Include="IRepository.cs" />

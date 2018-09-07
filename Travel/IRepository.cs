@@ -8,7 +8,7 @@ namespace Travel
 {
     interface IRepository
     {
-        void InsertProduct(params string[] members);
-        void UpdateProduct(int productId, bool bookingStatus, string product);
+        void InsertProduct(int productId, string productName, IProduct product, bool bookingStatus, double fare,double actualPrice);
+        void UpdateProduct(int productId, bool bookingStatus, IProduct productType);
     }
 }

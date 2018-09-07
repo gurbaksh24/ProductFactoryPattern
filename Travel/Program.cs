@@ -53,12 +53,12 @@ namespace Travel
         void Save(IProduct product,IRepository repository)
         {
             Logging.Instance.Log("Called Save() method of IProduct Interface from the Save() method in the Program class");
-            product.Save(repository);
+            product.Save(repository,product);
         }
         void Book(IProduct product,IRepository repository)
         {
             Logging.Instance.Log("Called Book() method of IProduct Interface from the Save() method in the Program class");
-            product.Book(repository);
+            product.Book(repository,product);
         }
     }
 }

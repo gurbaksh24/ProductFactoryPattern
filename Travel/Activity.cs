@@ -6,34 +6,23 @@ using System.Threading.Tasks;
 
 namespace Travel
 {
-    class Activity : IProduct
+    class Activity:IProduct
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public bool IsBooked { get; set; }
-        public void Book(IRepository repository)
+        public double Fare { get; set; }
+        public double ActualPrice { get; set; }
+        public void Book(IRepository repository, IProduct productType)
         {
-            Activity activity = new Activity();
-            int activityId;
-            Console.WriteLine("Fill out the following details:");
-            Console.Write("Activity ID: ");
-            int.TryParse(Console.ReadLine(), out activityId);
-            activity.Id = activityId;
-            repository.UpdateProduct(activityId, true, "Activity");
+            ProductServices productServices = new ProductServices();
+            productServices.Book(repository, productType);
         }
 
-        public void Save(IRepository repository)
+        public void Save(IRepository repository, IProduct productType)
         {
-            Activity activity = new Activity();
-            int activityId;
-            Console.WriteLine("Fill out the following details:");
-            Console.Write("Activity ID: ");
-            int.TryParse(Console.ReadLine(), out activityId);
-            activity.Id = activityId;
-            Console.Write("Activity Name: ");
-            activity.Name = Console.ReadLine();
-            IsBooked = false;
-            repository.InsertProduct(activity.Id.ToString(), activity.Name, "Activity", activity.IsBooked.ToString());
+            ProductServices productServices = new ProductServices();
+            productServices.Save(repository, productType);
         }
     }
 }

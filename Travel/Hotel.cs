@@ -6,34 +6,22 @@ using System.Threading.Tasks;
 
 namespace Travel
 {
-    class Hotel : IProduct
+    class Hotel:IProduct
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public bool IsBooked { get; set; }
-        public void Book(IRepository repository)
+        public double Fare { get; set; }
+        public double ActualPrice { get; set; }
+        public void Book(IRepository repository, IProduct productType)
         {
-            Hotel hotel = new Hotel();
-            int hotelId;
-            Console.WriteLine("Fill out the following details:");
-            Console.Write("Hotel ID: ");
-            int.TryParse(Console.ReadLine(), out hotelId);
-            hotel.Id = hotelId;
-            repository.UpdateProduct(hotel.Id, true, "Hotel");
+            ProductServices productServices = new ProductServices();
+            productServices.Book(repository, productType);
         }
-
-        public void Save(IRepository repository)
+        public void Save(IRepository repository, IProduct productType)
         {
-            Hotel hotel = new Hotel();
-            int hotelId;
-            Console.WriteLine("Fill out the following details:");
-            Console.Write("Hotel ID: ");
-            int.TryParse(Console.ReadLine(), out hotelId);
-            hotel.Id = hotelId;
-            Console.Write("Hotel Name: ");
-            hotel.Name = Console.ReadLine();
-            IsBooked = false;
-            repository.InsertProduct(hotel.Id.ToString(), hotel.Name, "Hotel", hotel.IsBooked.ToString());
+            ProductServices productServices = new ProductServices();
+            productServices.Save(repository, productType);
         }
     }
 }
